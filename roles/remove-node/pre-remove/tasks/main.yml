@@ -1,7 +1,7 @@
 ---
 - name: cordon-node | Mark all nodes as unschedulable before drain  # noqa 301
   command: >-
-    {{ bin_dir }}/kubectl cordon {{ hostvars[item]['kube_override_hostname']|default(item) }}
+    {{ bin_dir }}/kubectl --kubeconfig /etc/kubernetes/admin.conf cordon {{ hostvars[item]['kube_override_hostname']|default(item) }}
   with_items:
     - "{{ node.split(',') | default(groups['kube-node']) }}"
   register: result
